@@ -45,6 +45,30 @@ class RunScenarios extends Simulation {
     "Content-Type" -> "application/json"
   )
 
+  /*
+  Scenario base:
+
+  1.
+  Peter log in
+  Peter erstellt eines user
+
+  2.
+  Erstellt Projekt
+
+  3.
+  Erstellt Projekt
+  Erstellt Issue
+
+  Peter
+  GetProjects
+  Create User für project
+  Add user as member
+  Login as user
+
+  Für random project
+  mach neues Issue
+   */
+
   var randomProjectNameFeeder = Iterator.continually(
     Map("randomProjectName" -> (Random.alphanumeric.take(10).mkString))
   )
@@ -132,6 +156,8 @@ class RunScenarios extends Simulation {
 
    */
 
+  //inject(atOnceUsers(20))
+  //      .andThen(scn2.inject(constantUsersPerSec(5).during(1.minute).randomized))
   setUp(
     scn1
       .inject(atOnceUsers(5))

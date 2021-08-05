@@ -1,9 +1,0 @@
-ASSERTION	AAEDAAEDAwAAAAAAAECPQA==
-ASSERTION	AAEDAAECAwAAAAAAAECfQA==
-ASSERTION	AAECAAIEAAAAAAAAwFdA
-ASSERTION	AAECAAMDAAAAAAAAABRA
-RUN	de.thm.mni.microservices.gruppe6.RunScenarios	runscenarios	1628092049182	 	3.6.1
-USER	LoginAsPeter	START	1628092049707
-REQUEST		loginAsPeterHTTP	1628092049743	1628092049957	KO	jsonPath($authorization).find.exists preparation crashed: Jackson failed to parse into a valid AST: c.f.j.d.e.MismatchedInputException: No content to map due to end-of-input  at [Source: (io.gatling.commons.util.FastByteArrayInputStream); line: 1, column: 0]
-REQUEST		createProjectHTTP	1628092050004	1628092050132	KO	status.find.is(200), but actually found 201
-USER	LoginAsPeter	END	1628092050145

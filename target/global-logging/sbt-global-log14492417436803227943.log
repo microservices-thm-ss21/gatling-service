@@ -1,7 +1,0 @@
-[0m[[0m[0mdebug[0m] [0m[0m> Exec(Gatling/test, None, None)[0m
-[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Gatling / test[0m
-[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
-[0m[[0m[0minfo[0m] [0m[0mSimulation RunScenarios successful.[0m
-[0m[[0m[0minfo[0m] [0m[0mSimulation(s) execution ended.[0m
-[0m[[0m[32msuccess[0m] [0m[0mTotal time: 4 s, completed 04.08.2021, 18:16:10[0m
-[0m[[0m[0mdebug[0m] [0m[0m> Exec(idea-shell, None, None)[0m
