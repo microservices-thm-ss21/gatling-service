@@ -1,0 +1,15 @@
+{
+  "username": "${username}",
+
+  "password": "${password}",
+
+  "name": "${name}",
+
+  "lastName": "${lastName}",
+
+  "email": "${email}",
+
+  "dateOfBirth": "${dateOfBirth}",
+
+  "globalRole": "${globalRole}"
+}
