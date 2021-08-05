@@ -14,7 +14,7 @@ class RunScenarios extends Simulation {
 
   val httpProtocol: HttpProtocolBuilder = http
     .baseUrl("http://localhost:8069")
-    .acceptHeader(Map(
+    .headers(Map(
       "Content-Type" -> "application/json"
     ))
     .userAgentHeader(
@@ -127,12 +127,17 @@ class RunScenarios extends Simulation {
 
   val scenarioLoginPeter: ScenarioBuilder =
     scenario("LoginAsPeter")
-    .exec(User.login("Peter","password"))
+    .exec(User.login("Peter_Zwegat","password"))
 
   val scenarioPeterCreateProject: ScenarioBuilder =
     scenario("CreateProjectAsPeter")
-    .exec(User.login("Peter","password"))
+    .exec(User.login("Peter_Zwegat","password"))
     .exec(scenarioLoginPeter, Project.create("Test"))
+
+  val scenarioPeterCreateProjectFail: ScenarioBuilder =
+    scenario("CreateProjectAsPeter")
+      .exec(User.login("Peter_Zwegat","123password"))
+      .exec(scenarioLoginPeter, Project.create("NotATest"))
 
 
   /*
@@ -225,8 +230,9 @@ class RunScenarios extends Simulation {
   //inject(atOnceUsers(20))
   //      .andThen(scn2.inject(constantUsersPerSec(5).during(1.minute).randomized))
   setUp(
-    scenarioLoginPeter
-      .inject(atOnceUsers(5))
+    scenarioPeterCreateProjectFail
+      .inject(atOnceUsers(1))
+
   )
     .protocols(httpProtocol)
     .assertions(
