@@ -1,0 +1,279 @@
+ASSERTION	AAEDAAEDAwAAAAAAAECPQA==
+ASSERTION	AAEDAAECAwAAAAAAAECfQA==
+ASSERTION	AAECAAIEAAAAAAAAwFdA
+ASSERTION	AAECAAMDAAAAAAAAABRA
+RUN	de.thm.mni.microservices.gruppe6.RunScenarios	runscenarios	1628089402460	 	3.6.1
+USER	LoginAsGuestAndCreateRoom	START	1628089403121
+USER	LoginAsGuestAndCreateRoom	START	1628089403121
+USER	LoginAsGuestAndCreateRoom	START	1628089403121
+USER	LoginAsGuestAndCreateRoom	START	1628089403121
+USER	LoginAsGuestAndCreateRoom	START	1628089403121
+USER	LoginAsGuestAndCreateRoom	START	1628089403121
+USER	LoginAsGuestAndCreateRoom	START	1628089403127
+USER	LoginAsGuestAndCreateRoom	START	1628089403122
+USER	LoginAsGuestAndCreateRoom	START	1628089403129
+USER	LoginAsGuestAndCreateRoom	START	1628089403129
+USER	LoginAsGuestAndCreateRoom	START	1628089403129
+USER	LoginAsGuestAndCreateRoom	START	1628089403132
+USER	LoginAsGuestAndCreateRoom	START	1628089403132
+USER	LoginAsGuestAndCreateRoom	START	1628089403139
+USER	LoginAsGuestAndCreateRoom	START	1628089403139
+USER	LoginAsGuestAndCreateRoom	START	1628089403139
+USER	LoginAsGuestAndCreateRoom	START	1628089403179
+USER	LoginAsGuestAndCreateRoom	START	1628089403180
+USER	LoginAsGuestAndCreateRoom	START	1628089403183
+USER	LoginAsGuestAndCreateRoom	START	1628089403189
+REQUEST		loginAsGuest	1628089403174	1628089403190	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+REQUEST		loginAsGuest	1628089403174	1628089403197	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+REQUEST		loginAsGuest	1628089403174	1628089403196	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+REQUEST		loginAsGuest	1628089403174	1628089403190	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+REQUEST		loginAsGuest	1628089403174	1628089403190	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+REQUEST		loginAsGuest	1628089403174	1628089403190	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+REQUEST		loginAsGuest	1628089403175	1628089403190	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+REQUEST		loginAsGuest	1628089403174	1628089403195	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+REQUEST		loginAsGuest	1628089403175	1628089403188	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+REQUEST		loginAsGuest	1628089403184	1628089403201	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+REQUEST		loginAsGuest	1628089403178	1628089403198	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+REQUEST		loginAsGuest	1628089403174	1628089403187	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+REQUEST		loginAsGuest	1628089403174	1628089403190	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+REQUEST		loginAsGuest	1628089403175	1628089403189	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+REQUEST		loginAsGuest	1628089403180	1628089403197	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+REQUEST		loginAsGuest	1628089403175	1628089403196	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089403231
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089403231
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089403231
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089403231
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089403231
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089403232
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089403232
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089403232
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089403232
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089403233
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089403233
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089403234
+USER	LoginAsGuestAndCreateRoom	END	1628089403234
+USER	LoginAsGuestAndCreateRoom	END	1628089403234
+USER	LoginAsGuestAndCreateRoom	END	1628089403234
+USER	LoginAsGuestAndCreateRoom	END	1628089403234
+USER	LoginAsGuestAndCreateRoom	END	1628089403234
+USER	LoginAsGuestAndCreateRoom	END	1628089403234
+USER	LoginAsGuestAndCreateRoom	END	1628089403234
+USER	LoginAsGuestAndCreateRoom	END	1628089403234
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089403236
+USER	LoginAsGuestAndCreateRoom	END	1628089403234
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089403236
+USER	LoginAsGuestAndCreateRoom	END	1628089403234
+USER	LoginAsGuestAndCreateRoom	END	1628089403234
+REQUEST		loginAsGuest	1628089403183	1628089403236	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+USER	LoginAsGuestAndCreateRoom	END	1628089403236
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089403236
+USER	LoginAsGuestAndCreateRoom	END	1628089403237
+USER	LoginAsGuestAndCreateRoom	END	1628089403237
+USER	LoginAsGuestAndCreateRoom	END	1628089403237
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089403239
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089403238
+REQUEST		loginAsGuest	1628089403183	1628089403238	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089403352
+REQUEST		loginAsGuest	1628089403184	1628089403238	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089403352
+REQUEST		loginAsGuest	1628089403199	1628089403351	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089403352
+USER	LoginAsGuestAndCreateRoom	END	1628089403352
+USER	LoginAsGuestAndCreateRoom	END	1628089403352
+USER	LoginAsGuestAndCreateRoom	END	1628089403353
+USER	LoginAsGuestAndCreateRoom	END	1628089403357
+USER	LoginAsGuestAndCreateRoom	END	1628089403360
+USER	AskQuestionAndUpvote	START	1628089404236
+REQUEST		loginAsGuest	1628089404239	1628089404240	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089404240
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089404241
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089404241
+USER	AskQuestionAndUpvote	END	1628089404241
+USER	AskQuestionAndUpvote	START	1628089404319
+REQUEST		loginAsGuest	1628089404321	1628089404322	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089404322
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089404322
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089404323
+USER	AskQuestionAndUpvote	END	1628089404323
+USER	AskQuestionAndUpvote	START	1628089404383
+REQUEST		loginAsGuest	1628089404384	1628089404385	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089404386
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089404386
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089404386
+USER	AskQuestionAndUpvote	END	1628089404387
+USER	AskQuestionAndUpvote	START	1628089405121
+REQUEST		loginAsGuest	1628089405125	1628089405128	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089405130
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089405131
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089405133
+USER	AskQuestionAndUpvote	END	1628089405136
+USER	AskQuestionAndUpvote	START	1628089405369
+REQUEST		loginAsGuest	1628089405373	1628089405376	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089405378
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089405380
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089405381
+USER	AskQuestionAndUpvote	END	1628089405382
+USER	AskQuestionAndUpvote	START	1628089405740
+REQUEST		loginAsGuest	1628089405741	1628089405743	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089405744
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089405744
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089405744
+USER	AskQuestionAndUpvote	END	1628089405745
+USER	AskQuestionAndUpvote	START	1628089405795
+REQUEST		loginAsGuest	1628089405797	1628089405797	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089405798
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089405798
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089405799
+USER	AskQuestionAndUpvote	END	1628089405799
+USER	AskQuestionAndUpvote	START	1628089405959
+REQUEST		loginAsGuest	1628089405963	1628089405966	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089405974
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089405976
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089405978
+USER	AskQuestionAndUpvote	END	1628089405980
+USER	AskQuestionAndUpvote	START	1628089406519
+REQUEST		loginAsGuest	1628089406521	1628089406522	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089406523
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089406524
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089406524
+USER	AskQuestionAndUpvote	END	1628089406524
+USER	AskQuestionAndUpvote	START	1628089407114
+REQUEST		loginAsGuest	1628089407115	1628089407117	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089407119
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089407120
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089407121
+USER	AskQuestionAndUpvote	END	1628089407122
+USER	AskQuestionAndUpvote	START	1628089407140
+REQUEST		loginAsGuest	1628089407142	1628089407143	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089407144
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089407144
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089407144
+USER	AskQuestionAndUpvote	END	1628089407145
+USER	AskQuestionAndUpvote	START	1628089407418
+REQUEST		loginAsGuest	1628089407422	1628089407424	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089407426
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089407427
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089407428
+USER	AskQuestionAndUpvote	END	1628089407429
+USER	AskQuestionAndUpvote	START	1628089407522
+REQUEST		loginAsGuest	1628089407523	1628089407525	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089407525
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089407525
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089407526
+USER	AskQuestionAndUpvote	END	1628089407526
+USER	AskQuestionAndUpvote	START	1628089407638
+REQUEST		loginAsGuest	1628089407639	1628089407639	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089407640
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089407640
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089407641
+USER	AskQuestionAndUpvote	END	1628089407642
+USER	AskQuestionAndUpvote	START	1628089407699
+REQUEST		loginAsGuest	1628089407700	1628089407701	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089407703
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089407704
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089407704
+USER	AskQuestionAndUpvote	END	1628089407704
+USER	AskQuestionAndUpvote	START	1628089407712
+REQUEST		loginAsGuest	1628089407714	1628089407715	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089407716
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089407716
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089407717
+USER	AskQuestionAndUpvote	END	1628089407717
+USER	AskQuestionAndUpvote	START	1628089407787
+REQUEST		loginAsGuest	1628089407789	1628089407789	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089407790
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089407790
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089407791
+USER	AskQuestionAndUpvote	END	1628089407791
+USER	AskQuestionAndUpvote	START	1628089407823
+REQUEST		loginAsGuest	1628089407824	1628089407825	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089407826
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089407826
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089407826
+USER	AskQuestionAndUpvote	END	1628089407827
+USER	AskQuestionAndUpvote	START	1628089408452
+REQUEST		loginAsGuest	1628089408455	1628089408456	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089408458
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089408458
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089408459
+USER	AskQuestionAndUpvote	END	1628089408459
+USER	AskQuestionAndUpvote	START	1628089408536
+REQUEST		loginAsGuest	1628089408537	1628089408541	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089408542
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089408542
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089408543
+USER	AskQuestionAndUpvote	END	1628089408543
+USER	AskQuestionAndUpvote	START	1628089408825
+REQUEST		loginAsGuest	1628089408827	1628089408828	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089408829
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089408830
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089408830
+USER	AskQuestionAndUpvote	END	1628089408830
+USER	AskQuestionAndUpvote	START	1628089409187
+REQUEST		loginAsGuest	1628089409190	1628089409192	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089409195
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089409196
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089409197
+USER	AskQuestionAndUpvote	END	1628089409197
+USER	AskQuestionAndUpvote	START	1628089409240
+REQUEST		loginAsGuest	1628089409241	1628089409242	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089409243
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089409243
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089409243
+USER	AskQuestionAndUpvote	END	1628089409243
+USER	AskQuestionAndUpvote	START	1628089409463
+REQUEST		loginAsGuest	1628089409466	1628089409468	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089409469
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089409470
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089409472
+USER	AskQuestionAndUpvote	END	1628089409474
+USER	AskQuestionAndUpvote	START	1628089409796
+REQUEST		loginAsGuest	1628089409799	1628089409801	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089409802
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089409802
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089409803
+USER	AskQuestionAndUpvote	END	1628089409804
+USER	AskQuestionAndUpvote	START	1628089409936
+REQUEST		loginAsGuest	1628089409939	1628089409941	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089409943
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089409944
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089409945
+USER	AskQuestionAndUpvote	END	1628089409946
+USER	AskQuestionAndUpvote	START	1628089409994
+REQUEST		loginAsGuest	1628089409995	1628089409995	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089409996
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089409996
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089409996
+USER	AskQuestionAndUpvote	END	1628089409996
+USER	AskQuestionAndUpvote	START	1628089410963
+REQUEST		loginAsGuest	1628089410966	1628089410968	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089410970
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089410970
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089410971
+USER	AskQuestionAndUpvote	END	1628089410972
+USER	AskQuestionAndUpvote	START	1628089411826
+REQUEST		loginAsGuest	1628089411829	1628089411832	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089411835
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089411836
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089411837
+USER	AskQuestionAndUpvote	END	1628089411838
+USER	AskQuestionAndUpvote	START	1628089412647
+REQUEST		loginAsGuest	1628089412650	1628089412652	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089412654
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089412654
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089412655
+USER	AskQuestionAndUpvote	END	1628089412655
+USER	AskQuestionAndUpvote	START	1628089412733
+REQUEST		loginAsGuest	1628089412735	1628089412735	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089412736
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089412736
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089412736
+USER	AskQuestionAndUpvote	END	1628089412736
+USER	AskQuestionAndUpvote	START	1628089412745
+REQUEST		loginAsGuest	1628089412746	1628089412747	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createRoom: Failed to build request: No attribute named 'authToken' is defined 	1628089412747
+ERROR	createCommentAsParticipant: Failed to build request: No attribute named 'authToken' is defined 	1628089412747
+ERROR	upVoteComment: Failed to build request: No attribute named 'authToken' is defined 	1628089412747
+USER	AskQuestionAndUpvote	END	1628089412747
+USER	AskQuestionAndUpvote	START	1628089413002
+REQUEST		loginAsGuest	1628089413005	1628089413007	KO	

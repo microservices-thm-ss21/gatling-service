@@ -1,0 +1,9 @@
+ASSERTION	AAEDAAEDAwAAAAAAAECPQA==
+ASSERTION	AAEDAAECAwAAAAAAAECfQA==
+ASSERTION	AAECAAIEAAAAAAAAwFdA
+ASSERTION	AAECAAMDAAAAAAAAABRA
+RUN	de.thm.mni.microservices.gruppe6.RunScenarios	runscenarios	1628089828161	 	3.6.1
+USER	LoginAsPeter	START	1628089828731
+REQUEST		loginAsPeterHTTP	1628089828761	1628089828766	KO	j.n.ConnectException: finishConnect(..) failed: Verbindungsaufbau abgelehnt
+ERROR	createProjectHTTP: Failed to build request: No attribute named 'authToken' is defined 	1628089828779
+USER	LoginAsPeter	END	1628089828781

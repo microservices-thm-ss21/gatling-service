@@ -1,0 +1,10 @@
+[0m[[0m[0mdebug[0m] [0m[0mjavaOptions: Vector(-Dsbt.supershell=false, -Djdk.debug=release, -Dswoval.tmpdir=/home/niels/.sbt/1.0, -Didea.installation.dir=/snap/intellij-idea-ultimate/311, -Djna.nosys=true, -Dlog4j.ignoreTCL=true, -Djnidispatch.path=/home/niels/.cache/JNA/temp/jna14498033739678001419.tmp, -Djna.platform.library.path=/usr/lib/x86_64-linux-gnu:/lib/x86_64-linux-gnu:/usr/lib64:/lib64:/usr/lib:/lib:/lib/i386-linux-gnu:/lib/i386-linux-gnu/i686/sse2:/libx32:/lib32:/lib/i386-linux-gnu/sse2:/usr/lib/x86_64-linux-gnu/libfakeroot, -Djna.loaded=true, -Didea.managed=true, -server, -Xmx1G, -XX:+HeapDumpOnOutOfMemoryError, -XX:+UseG1GC, -XX:+ParallelRefProcEnabled, -XX:MaxInlineLevel=20, -XX:MaxTrivialSize=12, -XX:-UseBiasedLocking)[0m
+[0m[[0m[0mdebug[0m] [0m[0mForking tests - parallelism = false[0m
+[0m[[0m[0mdebug[0m] [0m[0mCreate a single-thread test executor[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunner for io.gatling.sbt.GatlingFramework produced 1 initial tasks for 1 tests.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(de.thm.mni.microservices.gruppe6.RunScenarios, sbt.ForkMain$SubclassFingerscan@6d1e7682, false, [SuiteSelector])[0m
+[0m[[0m[0minfo[0m] [0m[0mSimulation RunScenarios successful.[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
+[0m[[0m[0minfo[0m] [0m[0mSimulation(s) execution ended.[0m
+[0m[[0m[0mdebug[0m] [0m[0mPassed tests:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	de.thm.mni.microservices.gruppe6.RunScenarios[0m

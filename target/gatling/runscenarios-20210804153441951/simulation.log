@@ -1,0 +1,9 @@
+ASSERTION	AAEDAAEDAwAAAAAAAECPQA==
+ASSERTION	AAEDAAECAwAAAAAAAECfQA==
+ASSERTION	AAECAAIEAAAAAAAAwFdA
+ASSERTION	AAECAAMDAAAAAAAAABRA
+RUN	de.thm.mni.microservices.gruppe6.RunScenarios	runscenarios	1628091281951	 	3.6.1
+USER	LoginAsPeter	START	1628091282562
+REQUEST		loginAsPeterHTTP	1628091282592	1628091282835	KO	jsonPath($..token).find.exists preparation crashed: Jackson failed to parse into a valid AST: c.f.j.d.e.MismatchedInputException: No content to map due to end-of-input  at [Source: (io.gatling.commons.util.FastByteArrayInputStream); line: 1, column: 0]
+ERROR	createProjectHTTP: Failed to build request: No attribute named 'authToken' is defined 	1628091282865
+USER	LoginAsPeter	END	1628091282867
