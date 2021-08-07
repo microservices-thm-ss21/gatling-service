@@ -54,6 +54,8 @@ class RunScenarios extends Simulation {
   mach neues Issue
    */
 
+  var peterAuth: (String, String) = ("Peter_Zwegat", "password")
+
   var randomString: Iterator[String] = Iterator.continually(Random.alphanumeric.take(Random.between(5,20)).mkString)
 
   var randomFutureDate: Iterator[String] = Iterator.continually(LocalDate.now()
@@ -87,7 +89,9 @@ class RunScenarios extends Simulation {
 
 
   object User {
-    def login(username: String, password: String): ChainBuilder = {
+
+    def login(logins: (String, String)): ChainBuilder  = login(logins._1)(logins._2)
+    def login(username: String)(password: String): ChainBuilder = {
       exec(
         http("loginUser")
           .get("/login")
@@ -127,17 +131,28 @@ class RunScenarios extends Simulation {
 
   val scenarioLoginPeter: ScenarioBuilder =
     scenario("LoginAsPeter")
-    .exec(User.login("Peter_Zwegat","password"))
+      .exec(User.login(peterAuth))
+      .exitHereIfFailed
 
-  val scenarioPeterCreateProject: ScenarioBuilder =
-    scenario("CreateProjectAsPeter")
-    .exec(User.login("Peter_Zwegat","password"))
-    .exec(scenarioLoginPeter, Project.create("Test"))
 
-  val scenarioPeterCreateProjectFail: ScenarioBuilder =
+  val scenarioPeterCreateProject: ScenarioBuilder = {
     scenario("CreateProjectAsPeter")
-      .exec(User.login("Peter_Zwegat","123password"))
-      .exec(scenarioLoginPeter, Project.create("NotATest"))
+      .feed(randomStringFeeder)
+      .exec(User.login(peterAuth))
+      .exitHereIfFailed
+      .exec(scenarioLoginPeter, Project.create("${randomString}"))
+  }
+
+  val scenarioFailPeterCreateProject: ScenarioBuilder =
+    scenario("CreateProjectAsPeter")
+      .exec(User.login(peterAuth._1,"NotThePassword"))
+      .exitHereIfFailed
+      .exec(scenarioLoginPeter, Project.create("ShouldNotCreate"))
+
+  val scenarioPeterCreateUser: ScenarioBuilder = {
+    scenario("CreateUserAsPeter")
+      .exec()
+  }
 
 
   /*
@@ -230,7 +245,7 @@ class RunScenarios extends Simulation {
   //inject(atOnceUsers(20))
   //      .andThen(scn2.inject(constantUsersPerSec(5).during(1.minute).randomized))
   setUp(
-    scenarioPeterCreateProjectFail
+    scenarioPeterCreateProject
       .inject(atOnceUsers(1))
 
   )

@@ -1,6 +1,6 @@
 enablePlugins(GatlingPlugin)
 
-name := "gatling-service"
+name := "stresstest-gatling"
 
 version := "0.1"
 
