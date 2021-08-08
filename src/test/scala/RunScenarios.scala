@@ -1,15 +1,13 @@
 package de.thm.mni.microservices.gruppe6
 
-import scala.util.Random
+import Feeder._
+
 import io.gatling.core.Predef._
-import io.gatling.core.structure.{ChainBuilder, ScenarioBuilder}
+import io.gatling.core.structure.ScenarioBuilder
 import io.gatling.http.Predef._
 import io.gatling.http.protocol.HttpProtocolBuilder
-import sun.security.util.Password
 
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import scala.concurrent.duration.DurationInt
+import scala.util.Random
 
 class RunScenarios extends Simulation {
 
@@ -22,227 +20,56 @@ class RunScenarios extends Simulation {
       "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36"
     )
 
-  val sessionHeaders = Map(
-    "Content-Type" -> "application/json"
-  )
-
-  val jwtHeader = Map(
-    "Authorization" -> "${authToken}"
-  )
-
-
-  /*
-  Scenario base:
-
-  1.
-  Peter log in
-  Peter erstellt eines user
-
-  2.
-  Erstellt Projekt
-
-  3.
-  Erstellt Projekt
-  Erstellt Issue
-
-  Peter
-  GetProjects
-  Create User für project
-  Add user as member
-  Login as user
-
-  Für random project
-  mach neues Issue
+  /**
+   * Logs in as Peter Zwegat
    */
-
-  var peterAuth: (String, String) = ("Peter_Zwegat", "password")
-
-  var randomRole: Iterator[String] = Iterator.continually(List("USER", "SUPPORT", "ADMIN")(Random.nextInt(3)))
-
-  var randomString: Iterator[String] = Iterator.continually(Random.alphanumeric.take(Random.between(5,20)).mkString)
-
-  var randomFutureDate: Iterator[String] = Iterator.continually(LocalDate.now()
-    .plusDays(Random.nextInt(600))
-    .format(DateTimeFormatter.ofPattern("dd.MM.yyyy")))
-
-  var randomPastDate: Iterator[String] = Iterator.continually(LocalDate.now()
-    .minusDays(Random.nextInt(100*365))
-    .format(DateTimeFormatter.ofPattern("dd.MM.yyyy")))
-
-  var randomStringFeeder: Iterator[Map[String, String]] = Iterator.continually(
-    Map("randomString" -> randomString.next()))
-
-  var randomFutureDateFeeder: Iterator[Map[String, String]] = Iterator.continually(
-    Map("randomFutureDate" -> randomFutureDate.next()))
-
-  var randomPastDateFeeder: Iterator[Map[String, String]] = Iterator.continually(
-    Map("randomPastDate" -> randomPastDate.next()))
-
-  def newUserFeeder(role:String): Iterator[Map[String, String]] = {
-    Iterator.continually(Map(
-      "username" -> randomString.next(),
-      "password" -> randomString.next(),
-      "name" -> randomString.next(),
-      "lastName" -> randomString.next(),
-      "email" -> (randomString.next() + "@mni.thm.de"),
-      "dateOfBirth" -> randomPastDate.next(),
-      "globalRole" -> role
-    ))
-  }
-
-
-  object User {
-    def setAuth(auth: (String, String)): ChainBuilder = User.setAuth(auth._1, auth._2)
-    def setAuth(username: String, password: String): ChainBuilder = {
-      exec(session => {
-        session.set("username", username)
-          .set("password", password)
-      })
-    }
-    val login: ChainBuilder = {
-      exec(
-        http("loginUser")
-          .get("/login")
-          .basicAuth("${username}","${username}")
-          .check(status.is(200))
-          .check(header("authorization").exists)
-          .check(
-            header("authorization").saveAs("authToken")
-          )
-      ).exitHereIfFailed
-    }
-
-    /**
-     * saves user ID into field "userId.
-     */
-    def create(role: String): ChainBuilder = {
-      feed(newUserFeeder(role))
-      .exec(
-        http("createProjectHTTP")
-          .post(s"/api/users/")
-          .headers(jwtHeader)
-          .body(ElFileBody("bodies/userDTO.json")).asJson
-          .check(status.is(201))
-          .check(jsonPath("$.id").saveAs("userId"))
-      ).exitHereIfFailed
-    }
-
-    /**
-     * saves user ID into field "userId.
-     */
-    def createAndLogin(role: String, delay: Int = 0): ChainBuilder = {
-      User.create(role)
-        .pause(delay)
-        .exec(session => {
-          print("\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n\n")
-          print(session)
-          session
-        })
-        .exec(
-          http("loginUser")
-          .get("/login")
-          .basicAuth("${username}","${username}")
-          .check(status.is(200))
-          .check(header("authorization").exists)
-          .check(
-            header("authorization").saveAs("authToken")
-          )
-        ).exitHereIfFailed
-    }
-
-    /**
-     * Saves all Project-ID's into "projectList"
-     */
-    val getAll: ChainBuilder =
-      exec(
-        http("getAllUsersHTTP")
-          .get(s"/api/users/")
-          .headers(jwtHeader)
-          .headers(sessionHeaders)
-          .check(status.is(200))
-          .check(jsonPath("$[*].id").findAll.saveAs("userList")))
-        .exitHereIfFailed
-  }
-
-  object Project {
-    /**
-     * saves projectId into "projectId".
-     * saves projectName into "projectName".
-     */
-    def create(projectName: String = randomString.next()): ChainBuilder = {
-      exec(
-        http("createProjectHTTP")
-          .post(s"/api/projects/${projectName}")
-          .headers(jwtHeader)
-          .headers(sessionHeaders)
-          .check(status.is(201))
-          .check(jsonPath("$.id").saveAs("projectId"))
-          .check(jsonPath("$.name").saveAs("projectName"))
-      ).exitHereIfFailed
-    }
-
-    /**
-     * Saves all Project-ID's into "projectList"
-     */
-    val getAll: ChainBuilder =
-      exec(
-        http("getAllProjectsHTTP")
-          .get(s"/api/projects/")
-          .headers(jwtHeader)
-          .headers(sessionHeaders)
-          .check(status.is(200))
-          .check(jsonPath("$[*].id").findAll.saveAs("projectList")))
-                            //.transform(productIds => util.Random.shuffle(productIds)).saveAs("productIds"))
-        .exitHereIfFailed
-
-    def addMember(projectId: String = "${projectId}", memberId: String, role: String = randomRole.next()): ChainBuilder = {
-      exec(
-        http("addMemberHTTP")
-          .post(s"/api/projects/${projectId}/members/user/${memberId}/role/${role}")
-          .headers(jwtHeader)
-          .headers(sessionHeaders)
-          .check(status.is(201)))
-        .exitHereIfFailed
-    }
-
-  }
-
   val scenarioLoginAsPeter: ScenarioBuilder =
-    scenario("LoginAsPeter")
+    scenario("scenarioLoginAsPeter")
       .exec(User.setAuth(peterAuth))
       .exec(User.login)
 
 
+  /**
+   * 1. Logs in as Peter Zwegat. <br>
+   * 2. Creates a random Project <br>
+   */
   val scenarioPeterCreateProject: ScenarioBuilder = {
-    scenario("CreateProjectAsPeter")
-      .feed(randomStringFeeder)
+    scenario("scenarioPeterCreateProject")
       .exec(User.setAuth(peterAuth))
       .exec(User.login)
-      .exec(Project.create("${randomString}"))
+      .exec(Project.create)
   }
 
-  val scenarioFailPeterCreateProject: ScenarioBuilder =
-    scenario("CreateProjectAsPeter")
-      .exec(User.setAuth(peterAuth._1, "NotThePassword"))
-      .exec(User.login)
-      .exec(Project.create("ShouldNotCreate"))
-
+  /**
+   * 1. Logs in as Peter Zwegat. <br>
+   * 2. Creates a random user <br>
+   */
   val scenarioPeterCreateUser: ScenarioBuilder = {
-    scenario("CreateUserAsPeter")
+    scenario("scenarioPeterCreateUser")
       .exec(User.setAuth(peterAuth))
       .exec(User.login)
       .exec(User.create("USER"))
   }
 
+  /**
+   * 1. Logs in as Peter Zwegat. <br>
+   * 2. Creates a random user of random role <br>
+   * 3. Logs in as the new user
+   */
   val scenarioPeterCreateUserLogin: ScenarioBuilder = {
-    scenario("CreateUserLoginAsPeter")
+    scenario("scenarioPeterCreateUserLogin")
       .exec(User.setAuth(peterAuth))
       .exec(User.login)
-      .exec(User.createAndLogin("USER"))
+      .exec(User.create(randomRole.next()))
+      .exec(User.login)
   }
 
+  /**
+   * 1. Logs in as Peter Zwegat. <br>
+   * 2. Gets all Projects <br>
+   */
   val scenarioPeterGetProjects: ScenarioBuilder = {
-    scenario("GetAllProjectsAsPeter")
+    scenario("scenarioPeterGetProjects")
       .exec(User.setAuth(peterAuth))
       .exec(User.login)
       .exec(Project.getAll)
@@ -255,37 +82,109 @@ class RunScenarios extends Simulation {
       })
   }
 
+  /**
+   * 1. Logs in as Peter Zwegat. <br>
+   * 2. Gets all Users <br>
+   */
+  val scenarioPeterGetUsers: ScenarioBuilder = {
+    scenario("scenarioPeterGetUsers")
+      .exec(User.setAuth(peterAuth))
+      .exec(User.login)
+      .exec(User.getAll)
+      .exec(session => {
+        print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n\n")
+        val vector: Vector[String] = session.attributes("projectList").asInstanceOf[Vector[String]]
+        print(vector)
+        for (id <- vector) print(s"\n iterate: $id")
+        session
+      })
+  }
+
+  /**
+   * 1. Log in as Peter <br>
+   * 2. Create new User. <br>
+   * 3. Create new Project. <br>
+   * 4. Add member to new project <br>
+   */
+  val scenarioPeterCreateUserProjectMember: ScenarioBuilder = {
+    scenario("scenarioPeterCreateUserProjectMember")
+      .exec(User.setAuth(peterAuth))
+      .exec(User.login)
+      .exec(User.create("USER"))
+      .exec(Project.create)
+      .exec(Project.addMember(memberId = "${userId}"))
+  }
+
+  /**
+   * 1. Logs in as Peter Zwegat. <br>
+   * 2. Creates a random user of role USER <br>
+   * 3. Logs in as the new user <br>
+   * 4. Create a new Project <br>
+   * 5. Get all Users <br>
+   * 5.1 Select a random subset of the users <br>
+   * 6. Add these users to the project <br>
+   */
   val scenarioUserCreatesProjectAddsMembers: ScenarioBuilder = {
     scenario("scenarioUserCreatesProjectAddsMembers")
-      //Random.between(3,15)
-      .exec(
-        User.setAuth(peterAuth),
-        User.login,
-        pause(Random.between(3,15)),
-        User.createAndLogin("USER",1),
-        pause(Random.between(3,15)),
-        Project.create(),
-        pause(Random.between(3,15)),
-        User.getAll
-      )
+      .exec(User.setAuth(peterAuth))
+      .exec(User.login)
+      .pause(Random.between(3,15))
+      .exec(User.create("USER"))
+      .pause(Random.between(3,15))
+      .exec(User.login)
+      .pause(Random.between(3,15))
+      .exec(Project.create)
+      .pause(Random.between(3,15))
+      .exec(User.getAll)
+      // now filter the users
       .exec(session => {
+        // check that the to adding user does not try to add himself
         val loggedInUser = session.attributes("userId").asInstanceOf[String]
         val userList: List[String] = session.attributes("userList")
           .asInstanceOf[Vector[String]]
           .filter(id => id != loggedInUser)
           .toList
         val addingList = Random.shuffle(userList).take(Random.between(1, userList.length))
-        val new_session = session.set("addingList", addingList)
-        new_session
+        session.set("addingList", addingList)
       })
-      .repeat(session => session("addingList").as[List[Any]].size, "index"){
+      // iterate over the adding list and set current adding Id
+      .repeat(session => session("addingList").as[List[String]].size, "index"){
         exec(session => {
-          val addingList = session("addingList").as[List[Any]]
+          val addingList = session("addingList").as[List[String]]
           val index = session("index").as[Int]
           session.set("addingId", addingList(index))
         })
+          // actually add the selected member
           .pause(Random.between(3,15))
           .exec(Project.addMember(memberId="${addingId}"))
+    }
+
+    /**
+     * 1. Logs in as Peter Zwegat. <br>
+     * 2. Creates a random user of role USER <br>
+     * 3. Logs in as the new user <br>
+     * 4. Get all Projects <br>
+     * 4.1 Select a random Project
+     * 5. Create Issue for Project
+     */
+    val scenarioCreateUserRandomProjectIssue = {
+      scenario("scenarioCreateUserRandomProjectIssue")
+        .exec(User.setAuth(peterAuth))
+        .exec(User.login)
+        .pause(Random.between(3,15))
+        .exec(User.create("USER"))
+        .pause(Random.between(3,15))
+        .exec(User.login)
+        .exec(Project.getAll)
+        // now filter the project
+        .exec(session => {
+          val projectList: List[String] = session.attributes("projectList")
+            .asInstanceOf[Vector[String]]
+            .toList
+          val chosenProject = projectList(Random.nextInt(projectList.length))
+          session.set("projectId", chosenProject)
+        })
+
     }
         /*
         .exec(session => {
@@ -413,7 +312,7 @@ session
   //inject(atOnceUsers(20))
   //      .andThen(scn2.inject(constantUsersPerSec(5).during(1.minute).randomized))
   setUp(
-    scenarioPeterCreateUserLogin
+    scenarioUserCreatesProjectAddsMembers
       .inject(
         atOnceUsers(1),
         //constantUsersPerSec(5).during(1.minute).randomized
