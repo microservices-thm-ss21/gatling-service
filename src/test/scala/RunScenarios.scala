@@ -2,11 +2,12 @@ package de.thm.mni.microservices.gruppe6
 
 import Feeder._
 
-import io.gatling.core.Predef._
+import io.gatling.core.Predef.{constantUsersPerSec, _}
 import io.gatling.core.structure.ScenarioBuilder
 import io.gatling.http.Predef._
 import io.gatling.http.protocol.HttpProtocolBuilder
 
+import scala.concurrent.duration.DurationInt
 import scala.util.Random
 
 class RunScenarios extends Simulation {
@@ -204,11 +205,28 @@ class RunScenarios extends Simulation {
     //inject(atOnceUsers(20))
     //      .andThen(scn2.inject(constantUsersPerSec(5).during(1.minute).randomized))
     setUp(
+
+      //User Creation and login
+      scenarioPeterCreateUserLogin
+        .inject(
+          atOnceUsers(5),
+          constantUsersPerSec(5).during(1.minute).randomized
+        ),
+
+      //Issue creation
       scenarioCreateUserRandomProjectIssue
         .inject(
-          atOnceUsers(1),
-          //constantUsersPerSec(5).during(1.minute).randomized
+          atOnceUsers(5),
+          constantUsersPerSec(5).during(1.minute).randomized
+        ),
+
+      // Member Adding
+      scenarioUserCreatesProjectAddsMembers
+        .inject(
+          atOnceUsers(5),
+          constantUsersPerSec(5).during(1.minute).randomized
         )
+
     )
       .protocols(httpProtocol)
       .assertions(

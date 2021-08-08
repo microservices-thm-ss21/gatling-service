@@ -49,7 +49,7 @@ object Feeder {
       //"assignedUserId" -> assignedUserId,
       //"projectId" -> "${projectId}",
       "deadline" -> randomFutureDate.next(),
-      "status" -> List("OPEN", "CLOSED")(Random.nextInt(2))
+      "status" -> List("OPEN", "CLOSED", "IN_PROGRESS", "TO_BE_REVIEWED")(Random.nextInt(2))
     ))
   }
 
