@@ -5,6 +5,7 @@ import io.gatling.core.Predef._
 import io.gatling.core.structure.{ChainBuilder, ScenarioBuilder}
 import io.gatling.http.Predef._
 import io.gatling.http.protocol.HttpProtocolBuilder
+import sun.security.util.Password
 
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -77,10 +78,10 @@ class RunScenarios extends Simulation {
   var randomPastDateFeeder: Iterator[Map[String, String]] = Iterator.continually(
     Map("randomPastDate" -> randomPastDate.next()))
 
-  def newUserFeeder(role:String, username: String = randomString.next(), password: String = randomString.next()): Iterator[Map[String, String]] = {
+  def newUserFeeder(role:String): Iterator[Map[String, String]] = {
     Iterator.continually(Map(
-      "username" -> username,
-      "password" -> password,
+      "username" -> randomString.next(),
+      "password" -> randomString.next(),
       "name" -> randomString.next(),
       "lastName" -> randomString.next(),
       "email" -> (randomString.next() + "@mni.thm.de"),
@@ -91,13 +92,18 @@ class RunScenarios extends Simulation {
 
 
   object User {
-
-    def login(logins: (String, String)): ChainBuilder  = login(logins._1, logins._2)
-    def login(username: String, password: String): ChainBuilder = {
+    def setAuth(auth: (String, String)): ChainBuilder = User.setAuth(auth._1, auth._2)
+    def setAuth(username: String, password: String): ChainBuilder = {
+      exec(session => {
+        session.set("username", username)
+          .set("password", password)
+      })
+    }
+    val login: ChainBuilder = {
       exec(
         http("loginUser")
           .get("/login")
-          .basicAuth(username,password)
+          .basicAuth("${username}","${username}")
           .check(status.is(200))
           .check(header("authorization").exists)
           .check(
@@ -109,8 +115,8 @@ class RunScenarios extends Simulation {
     /**
      * saves user ID into field "userId.
      */
-    def create(role: String, username: String = randomString.next(), password: String = randomString.next()): ChainBuilder = {
-      feed(newUserFeeder(role, username, password))
+    def create(role: String): ChainBuilder = {
+      feed(newUserFeeder(role))
       .exec(
         http("createProjectHTTP")
           .post(s"/api/users/")
@@ -125,14 +131,17 @@ class RunScenarios extends Simulation {
      * saves user ID into field "userId.
      */
     def createAndLogin(role: String, delay: Int = 0): ChainBuilder = {
-      val username = randomString.next()
-      val password = randomString.next()
-      User.create(role, username, password)
+      User.create(role)
         .pause(delay)
+        .exec(session => {
+          print("\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n\n")
+          print(session)
+          session
+        })
         .exec(
           http("loginUser")
           .get("/login")
-          .basicAuth(username,password)
+          .basicAuth("${username}","${username}")
           .check(status.is(200))
           .check(header("authorization").exists)
           .check(
@@ -200,36 +209,42 @@ class RunScenarios extends Simulation {
 
   val scenarioLoginAsPeter: ScenarioBuilder =
     scenario("LoginAsPeter")
-      .exec(User.login(peterAuth))
+      .exec(User.setAuth(peterAuth))
+      .exec(User.login)
 
 
   val scenarioPeterCreateProject: ScenarioBuilder = {
     scenario("CreateProjectAsPeter")
       .feed(randomStringFeeder)
-      .exec(User.login(peterAuth))
+      .exec(User.setAuth(peterAuth))
+      .exec(User.login)
       .exec(Project.create("${randomString}"))
   }
 
   val scenarioFailPeterCreateProject: ScenarioBuilder =
     scenario("CreateProjectAsPeter")
-      .exec(User.login(peterAuth._1,"NotThePassword"))
+      .exec(User.setAuth(peterAuth._1, "NotThePassword"))
+      .exec(User.login)
       .exec(Project.create("ShouldNotCreate"))
 
   val scenarioPeterCreateUser: ScenarioBuilder = {
     scenario("CreateUserAsPeter")
-      .exec(User.login(peterAuth))
+      .exec(User.setAuth(peterAuth))
+      .exec(User.login)
       .exec(User.create("USER"))
   }
 
   val scenarioPeterCreateUserLogin: ScenarioBuilder = {
     scenario("CreateUserLoginAsPeter")
-      .exec(User.login(peterAuth))
+      .exec(User.setAuth(peterAuth))
+      .exec(User.login)
       .exec(User.createAndLogin("USER"))
   }
 
   val scenarioPeterGetProjects: ScenarioBuilder = {
     scenario("GetAllProjectsAsPeter")
-      .exec(User.login(peterAuth))
+      .exec(User.setAuth(peterAuth))
+      .exec(User.login)
       .exec(Project.getAll)
       .exec(session => {
         print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n\n")
@@ -244,7 +259,8 @@ class RunScenarios extends Simulation {
     scenario("scenarioUserCreatesProjectAddsMembers")
       //Random.between(3,15)
       .exec(
-        User.login(peterAuth),
+        User.setAuth(peterAuth),
+        User.login,
         pause(Random.between(3,15)),
         User.createAndLogin("USER",1),
         pause(Random.between(3,15)),
@@ -272,6 +288,12 @@ class RunScenarios extends Simulation {
           .exec(Project.addMember(memberId="${addingId}"))
     }
         /*
+        .exec(session => {
+        print("\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n\n")
+        print(session)
+        session
+      })
+
         print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n\n")
         print(addingList)
         for (userId <- addingList){
