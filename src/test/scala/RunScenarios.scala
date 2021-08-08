@@ -151,89 +151,88 @@ class RunScenarios extends Simulation {
           session.set("addingId", addingList(index))
         })
           // actually add the selected member
-          .pause(Random.between(3, 15))
           .exec(Project.addMember(memberId = "${addingId}"))
       }
   }
 
-    /**
-     * 1. Logs in as Peter Zwegat. <br>
-     * 2. Create project <br>
-     * 3. Create Issue <br>
-     */
-    val scenarioCreateProjectIssue: ScenarioBuilder = {
-      scenario("scenarioCreateProjectIssue")
-        .exec(User.setAuth(peterAuth))
-        .exec(User.login)
-        .pause(Random.between(3, 15))
-        .exec(Project.create)
-        .pause(Random.between(3, 15))
-        .exec(Issue.create)
-    }
+  /**
+   * 1. Logs in as Peter Zwegat. <br>
+   * 2. Create project <br>
+   * 3. Create Issue <br>
+   */
+  val scenarioCreateProjectIssue: ScenarioBuilder = {
+    scenario("scenarioCreateProjectIssue")
+      .exec(User.setAuth(peterAuth))
+      .exec(User.login)
+      .pause(Random.between(3, 15))
+      .exec(Project.create)
+      .pause(Random.between(3, 15))
+      .exec(Issue.create)
+  }
 
-    /**
-     * 1. Logs in as Peter Zwegat. <br>
-     * 2. Creates a random user of role USER <br>
-     * 3. Logs in as the new user <br>
-     * 4. Get all Projects <br>
-     * 4.1 Select a random Project <br>
-     * 5. Create Issue for Project
-     */
-    val scenarioCreateUserRandomProjectIssue: ScenarioBuilder = {
-      scenario("scenarioCreateUserRandomProjectIssue")
-        .exec(User.setAuth(peterAuth))
-        .exec(User.login)
-        .pause(Random.between(3, 15))
-        .exec(User.create("USER"))
-        .pause(Random.between(3, 15))
-        .exec(User.login)
-        .pause(Random.between(3, 15))
-        .exec(Project.getAll)
-        .pause(Random.between(3, 15))
-        // now filter the project
-        .exec(session => {
-          val projectList: List[String] = session.attributes("projectList")
-            .asInstanceOf[Vector[String]]
-            .toList
-          val chosenProject = projectList(Random.nextInt(projectList.length))
-          session.set("projectId", chosenProject)
-        })
-        .exec(Issue.create)
+  /**
+   * 1. Logs in as Peter Zwegat. <br>
+   * 2. Creates a random user of role USER <br>
+   * 3. Logs in as the new user <br>
+   * 4. Get all Projects <br>
+   * 4.1 Select a random Project <br>
+   * 5. Create Issue for Project
+   */
+  val scenarioCreateUserRandomProjectIssue: ScenarioBuilder = {
+    scenario("scenarioCreateUserRandomProjectIssue")
+      .exec(User.setAuth(peterAuth))
+      .exec(User.login)
+      .pause(Random.between(3, 15))
+      .exec(User.create("USER"))
+      .pause(Random.between(3, 15))
+      .exec(User.login)
+      .pause(Random.between(3, 15))
+      .exec(Project.getAll)
+      .pause(Random.between(3, 15))
+      // now filter the project
+      .exec(session => {
+        val projectList: List[String] = session.attributes("projectList")
+          .asInstanceOf[Vector[String]]
+          .toList
+        val chosenProject = projectList(Random.nextInt(projectList.length))
+        session.set("projectId", chosenProject)
+      })
+      .exec(Issue.create)
 
-    }
+  }
 
-    //inject(atOnceUsers(20))
-    //      .andThen(scn2.inject(constantUsersPerSec(5).during(1.minute).randomized))
-    setUp(
+  //inject(atOnceUsers(20))
+  //      .andThen(scn2.inject(constantUsersPerSec(5).during(1.minute).randomized))
+  setUp(
 
-      //User Creation and login
-      scenarioPeterCreateUserLogin
-        .inject(
-          rampUsers(5).during(5.seconds),
-          constantUsersPerSec(5).during(30.seconds).randomized
-        ),
+    //User Creation and login
+    scenarioPeterCreateUserLogin
+      .inject(
+        rampUsers(5).during(5.seconds),
+        constantUsersPerSec(5).during(30.seconds).randomized
+      ),
 
-      //Issue creation
-      scenarioCreateUserRandomProjectIssue
-        .inject(
-          rampUsers(5).during(5.seconds),
-          constantUsersPerSec(5).during(30.seconds).randomized
-        ),
+    //Issue creation
+    scenarioCreateUserRandomProjectIssue
+      .inject(
+        rampUsers(5).during(5.seconds),
+        constantUsersPerSec(5).during(30.seconds).randomized
+      ),
 
-      // Member Adding
-      scenarioUserCreatesProjectAddsMembers
-        .inject(
-          rampUsers(5).during(5.seconds),
-          constantUsersPerSec(5).during(30.seconds).randomized
-        )
-
-    )
-      .protocols(httpProtocol)
-      .assertions(
-        global.responseTime.mean.lt(1000),
-        global.responseTime.max.lt(2000),
-        global.successfulRequests.percent.gt(95),
-        global.failedRequests.percent.lt(5)
+    // Member Adding
+    scenarioUserCreatesProjectAddsMembers
+      .inject(
+        rampUsers(5).during(5.seconds),
+        constantUsersPerSec(5).during(30.seconds).randomized
       )
+
+  )
+    .protocols(httpProtocol)
+    .assertions(
+      global.responseTime.mean.lt(1000),
+      global.responseTime.max.lt(2000),
+      global.successfulRequests.percent.gt(95),
+      global.failedRequests.percent.lt(5)
+    )
 
 }
