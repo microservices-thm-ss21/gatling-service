@@ -209,22 +209,22 @@ class RunScenarios extends Simulation {
       //User Creation and login
       scenarioPeterCreateUserLogin
         .inject(
-          atOnceUsers(5),
-          constantUsersPerSec(5).during(1.minute).randomized
+          rampUsers(5).during(5.seconds),
+          constantUsersPerSec(5).during(30.seconds).randomized
         ),
 
       //Issue creation
       scenarioCreateUserRandomProjectIssue
         .inject(
-          atOnceUsers(5),
-          constantUsersPerSec(5).during(1.minute).randomized
+          rampUsers(5).during(5.seconds),
+          constantUsersPerSec(5).during(30.seconds).randomized
         ),
 
       // Member Adding
       scenarioUserCreatesProjectAddsMembers
         .inject(
-          atOnceUsers(5),
-          constantUsersPerSec(5).during(1.minute).randomized
+          rampUsers(5).during(5.seconds),
+          constantUsersPerSec(5).during(30.seconds).randomized
         )
 
     )
