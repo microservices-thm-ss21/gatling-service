@@ -225,25 +225,24 @@ class RunScenarios extends Simulation {
   setUp(
 
     //User Creation and login and query news
-    scenarioNewUserGetNews
+    /*scenarioNewUserGetNews
       .inject(
         atOnceUsers(1),
         constantUsersPerSec(1).during(10.seconds).randomized
-      ),
-
+      ).andThen(*/
       //Issue creation
     scenarioCreateUserRandomProjectIssue
       .inject(
         rampUsers(3).during(5.seconds),
-        constantUsersPerSec(3).during(10.seconds).randomized
-      ),
-
+        constantUsersPerSec(5).during(10.seconds).randomized
+      )/*)
+      .andThen(
     // Member Adding
     scenarioUserCreatesProjectAddsMembers
       .inject(
         rampUsers(3).during(5.seconds),
         constantUsersPerSec(3).during(10.seconds).randomized
-      )
+      ))*/
 
   )
     .protocols(httpProtocol)
