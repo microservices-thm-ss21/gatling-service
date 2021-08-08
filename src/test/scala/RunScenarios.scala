@@ -150,7 +150,8 @@ class RunScenarios extends Simulation {
           val index = session("index").as[Int]
           session.set("addingId", addingList(index))
         })
-          // actually add the selected member
+          // Actually add members
+          .pause(Random.between(3, 15))
           .exec(Project.addMember(memberId = "${addingId}"))
       }
   }
@@ -201,29 +202,47 @@ class RunScenarios extends Simulation {
 
   }
 
+  /**
+   * 1. Logs in as Peter Zwegat. <br>
+   * 2. Creates a random user of random role <br>
+   * 3. Logs in as the new user
+   * 4. Requests news of the user
+   */
+  val scenarioNewUserGetNews: ScenarioBuilder = {
+    scenario("scenarioNewUserGetNews")
+      .exec(User.setAuth(peterAuth))
+      .exec(User.login)
+      .pause(Random.between(3, 15))
+      .exec(User.create(randomRole.next()))
+      .pause(Random.between(3, 15))
+      .exec(User.login)
+      .pause(Random.between(3, 15))
+      .exec(News.getNewsOwn)
+  }
+
   //inject(atOnceUsers(20))
   //      .andThen(scn2.inject(constantUsersPerSec(5).during(1.minute).randomized))
   setUp(
 
-    //User Creation and login
-    scenarioPeterCreateUserLogin
+    //User Creation and login and query news
+    scenarioNewUserGetNews
       .inject(
-        rampUsers(5).during(5.seconds),
-        constantUsersPerSec(5).during(30.seconds).randomized
+        rampUsers(1),
+        constantUsersPerSec(1).during(10.seconds).randomized
       ),
 
-    //Issue creation
+      //Issue creation
     scenarioCreateUserRandomProjectIssue
       .inject(
-        rampUsers(5).during(5.seconds),
-        constantUsersPerSec(5).during(30.seconds).randomized
+        rampUsers(3).during(5.seconds),
+        constantUsersPerSec(3).during(10.seconds).randomized
       ),
 
     // Member Adding
     scenarioUserCreatesProjectAddsMembers
       .inject(
-        rampUsers(5).during(5.seconds),
-        constantUsersPerSec(5).during(30.seconds).randomized
+        rampUsers(3).during(5.seconds),
+        constantUsersPerSec(3).during(10.seconds).randomized
       )
 
   )
