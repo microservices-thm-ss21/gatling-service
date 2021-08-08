@@ -37,6 +37,7 @@ class RunScenarios extends Simulation {
     scenario("scenarioPeterCreateProject")
       .exec(User.setAuth(peterAuth))
       .exec(User.login)
+      .pause(Random.between(3, 15))
       .exec(Project.create)
   }
 
@@ -48,6 +49,7 @@ class RunScenarios extends Simulation {
     scenario("scenarioPeterCreateUser")
       .exec(User.setAuth(peterAuth))
       .exec(User.login)
+      .pause(Random.between(3, 15))
       .exec(User.create("USER"))
   }
 
@@ -60,7 +62,9 @@ class RunScenarios extends Simulation {
     scenario("scenarioPeterCreateUserLogin")
       .exec(User.setAuth(peterAuth))
       .exec(User.login)
+      .pause(Random.between(3, 15))
       .exec(User.create(randomRole.next()))
+      .pause(Random.between(3, 15))
       .exec(User.login)
   }
 
@@ -72,14 +76,8 @@ class RunScenarios extends Simulation {
     scenario("scenarioPeterGetProjects")
       .exec(User.setAuth(peterAuth))
       .exec(User.login)
+      .pause(Random.between(3, 15))
       .exec(Project.getAll)
-      .exec(session => {
-        print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n\n")
-        val vector: Vector[String] = session.attributes("projectList").asInstanceOf[Vector[String]]
-        print(vector)
-        for (id <- vector) print(s"\n iterate: $id")
-        session
-      })
   }
 
   /**
@@ -90,14 +88,8 @@ class RunScenarios extends Simulation {
     scenario("scenarioPeterGetUsers")
       .exec(User.setAuth(peterAuth))
       .exec(User.login)
+      .pause(Random.between(3, 15))
       .exec(User.getAll)
-      .exec(session => {
-        print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n\n")
-        val vector: Vector[String] = session.attributes("projectList").asInstanceOf[Vector[String]]
-        print(vector)
-        for (id <- vector) print(s"\n iterate: $id")
-        session
-      })
   }
 
   /**
@@ -110,8 +102,11 @@ class RunScenarios extends Simulation {
     scenario("scenarioPeterCreateUserProjectMember")
       .exec(User.setAuth(peterAuth))
       .exec(User.login)
+      .pause(Random.between(3, 15))
       .exec(User.create("USER"))
+      .pause(Random.between(3, 15))
       .exec(Project.create)
+      .pause(Random.between(3, 15))
       .exec(Project.addMember(memberId = "${userId}"))
   }
 
@@ -128,13 +123,13 @@ class RunScenarios extends Simulation {
     scenario("scenarioUserCreatesProjectAddsMembers")
       .exec(User.setAuth(peterAuth))
       .exec(User.login)
-      .pause(Random.between(3,15))
+      .pause(Random.between(3, 15))
       .exec(User.create("USER"))
-      .pause(Random.between(3,15))
+      .pause(Random.between(3, 15))
       .exec(User.login)
-      .pause(Random.between(3,15))
+      .pause(Random.between(3, 15))
       .exec(Project.create)
-      .pause(Random.between(3,15))
+      .pause(Random.between(3, 15))
       .exec(User.getAll)
       // now filter the users
       .exec(session => {
@@ -148,15 +143,31 @@ class RunScenarios extends Simulation {
         session.set("addingList", addingList)
       })
       // iterate over the adding list and set current adding Id
-      .repeat(session => session("addingList").as[List[String]].size, "index"){
+      .repeat(session => session("addingList").as[List[String]].size, "index") {
         exec(session => {
           val addingList = session("addingList").as[List[String]]
           val index = session("index").as[Int]
           session.set("addingId", addingList(index))
         })
           // actually add the selected member
-          .pause(Random.between(3,15))
-          .exec(Project.addMember(memberId="${addingId}"))
+          .pause(Random.between(3, 15))
+          .exec(Project.addMember(memberId = "${addingId}"))
+      }
+  }
+
+    /**
+     * 1. Logs in as Peter Zwegat. <br>
+     * 2. Create project <br>
+     * 3. Create Issue <br>
+     */
+    val scenarioCreateProjectIssue: ScenarioBuilder = {
+      scenario("scenarioCreateProjectIssue")
+        .exec(User.setAuth(peterAuth))
+        .exec(User.login)
+        .pause(Random.between(3, 15))
+        .exec(Project.create)
+        .pause(Random.between(3, 15))
+        .exec(Issue.create)
     }
 
     /**
@@ -164,18 +175,20 @@ class RunScenarios extends Simulation {
      * 2. Creates a random user of role USER <br>
      * 3. Logs in as the new user <br>
      * 4. Get all Projects <br>
-     * 4.1 Select a random Project
+     * 4.1 Select a random Project <br>
      * 5. Create Issue for Project
      */
-    val scenarioCreateUserRandomProjectIssue = {
+    val scenarioCreateUserRandomProjectIssue: ScenarioBuilder = {
       scenario("scenarioCreateUserRandomProjectIssue")
         .exec(User.setAuth(peterAuth))
         .exec(User.login)
-        .pause(Random.between(3,15))
+        .pause(Random.between(3, 15))
         .exec(User.create("USER"))
-        .pause(Random.between(3,15))
+        .pause(Random.between(3, 15))
         .exec(User.login)
+        .pause(Random.between(3, 15))
         .exec(Project.getAll)
+        .pause(Random.between(3, 15))
         // now filter the project
         .exec(session => {
           val projectList: List[String] = session.attributes("projectList")
@@ -184,146 +197,25 @@ class RunScenarios extends Simulation {
           val chosenProject = projectList(Random.nextInt(projectList.length))
           session.set("projectId", chosenProject)
         })
+        .exec(Issue.create)
 
     }
-        /*
-        .exec(session => {
-        print("\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n\n")
-        print(session)
-        session
-      })
 
-        print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n\n")
-        print(addingList)
-        for (userId <- addingList){
-          print(s"$userId \n")
-          exec(
-            pause(1),
-            Project.addMember(memberId = userId)
-          )
-
-        }
-        session
-
-        })
-         */
-
-
-
-  }
-
-
-  /*
-print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n\n")
-//val vector: Vector[String] = session.attributes("userList").asInstanceOf[Vector[String]]
-print(vector)
-for (id <- vector) print(s"\n iterate: $id")
-session
-
- */
-
-  /*
-  val scn1 = scenario("LoginAsPeter").exec(
-    feed(randomProjectNameFeeder)
-      .exec(
-        http("loginAsPeterHTTP")
-          .get("/login")
-          .headers(headers_0)
-          .basicAuth("Peter_Zwegat","password")
-          .check(status.is(200))
-          .check(header("authorization").exists)
-          .check(
-            header("authorization").saveAs("authToken")
-          )
-      )
-      .exec(
-        http("createProjectHTTP")
-          .post("/api/projects/test")
-          .headers(sessionHeaders)
-          .check(status.is(201))
-      )
-  )
-
-   */
-
-  /*val scn1 = scenario("LoginAsGuestAndCreateRoom").exec(
-    feed(randomRoomNameFeeder)
-      .exec(
-        http("loginAsGuest")
-          .post("/auth/login/guest")
-          .check(status.is(200))
-          .check(
-            jsonPath("$..details").exists.saveAs("authToken")
-          )
-          .check(
-            jsonPath("$..accountId").exists.saveAs("accountId")
-          )
-      )
-      .exec(
-        http("createRoom")
-          .post("/room/")
-          .headers(sessionHeaders)
-          .body(StringBody("""{
-            "name": "${randomRoomName}"
-          }"""))
-          .asJson
-          .check(bodyString.saveAs("BODY"))
-          .check(
-            status.is(200)
-          )
-          .check(
-            jsonPath("$..id").exists.saveAs("roomId")
-          )
-      )
-  )
-
-  val scn2 = scenario("AskQuestionAndUpvote")
-    .feed(randomQuestionBody)
-    .exec(scn1)
-    .exec(
-      http("createCommentAsParticipant")
-        .post("/comment/")
-        .headers(sessionHeaders)
-        .body(StringBody("""{
-                "roomId": "${roomId}",
-                "body": "${randomRoomName}"
-            }"""))
-        .asJson
-        .check(
-          status.is(201)
-        )
-        .check(
-          jsonPath("$..id").exists.saveAs("commentId")
+    //inject(atOnceUsers(20))
+    //      .andThen(scn2.inject(constantUsersPerSec(5).during(1.minute).randomized))
+    setUp(
+      scenarioCreateUserRandomProjectIssue
+        .inject(
+          atOnceUsers(1),
+          //constantUsersPerSec(5).during(1.minute).randomized
         )
     )
-    .exec(
-      http("upVoteComment")
-        .post("/vote/")
-        .headers(sessionHeaders)
-        .body(StringBody("""{
-        "commentId": "${commentId}",
-        "vote": "1"
-      }"""))
-        .check(status.is(200))
-    )
-
-   */
-
-  //inject(atOnceUsers(20))
-  //      .andThen(scn2.inject(constantUsersPerSec(5).during(1.minute).randomized))
-  setUp(
-    scenarioUserCreatesProjectAddsMembers
-      .inject(
-        atOnceUsers(1),
-        //constantUsersPerSec(5).during(1.minute).randomized
+      .protocols(httpProtocol)
+      .assertions(
+        global.responseTime.mean.lt(1000),
+        global.responseTime.max.lt(2000),
+        global.successfulRequests.percent.gt(95),
+        global.failedRequests.percent.lt(5)
       )
-  )
-    .protocols(httpProtocol)
-    .assertions(
-      global.responseTime.mean.lt(1000),
-      global.responseTime.max.lt(2000),
-      global.successfulRequests.percent.gt(95),
-      global.failedRequests.percent.lt(5)
-    )
 
 }

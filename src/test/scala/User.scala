@@ -19,7 +19,7 @@ object User {
 
   val login: ChainBuilder = {
     exec(
-      http("loginUser")
+      http("loginUserHTTP")
         .get("/login")
         .basicAuth("${username}","${password}")
         .check(status.is(200))
@@ -35,9 +35,9 @@ object User {
    * Saves username and password in respective fields.
    */
   def create(role: String): ChainBuilder = {
-    feed(newUserFeeder(role))
+    feed(randomUserFeeder(role))
       .exec(
-        http("createProjectHTTP")
+        http("createUserHTTP")
           .post(s"/api/users/")
           .headers(jwtHeader)
           .body(ElFileBody("bodies/userDTO.json")).asJson

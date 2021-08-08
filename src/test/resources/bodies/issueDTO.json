@@ -1,0 +1,11 @@
+{
+  "message": "${message}",
+
+  "assignedUserId": null,
+
+  "projectId": "${projectId}",
+
+  "deadline": "${deadline}",
+
+  "status": "${status}"
+}
