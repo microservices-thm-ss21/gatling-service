@@ -227,7 +227,7 @@ class RunScenarios extends Simulation {
     //User Creation and login and query news
     scenarioNewUserGetNews
       .inject(
-        rampUsers(1),
+        atOnceUsers(1),
         constantUsersPerSec(1).during(10.seconds).randomized
       ),
 
