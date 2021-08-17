@@ -151,7 +151,6 @@ class RunScenarios extends Simulation {
           session.set("addingId", addingList(index))
         })
           // Actually add members
-          .pause(Random.between(3, 15))
           .exec(Project.addMember(memberId = "${addingId}"))
       }
   }
@@ -224,26 +223,25 @@ class RunScenarios extends Simulation {
   //      .andThen(scn2.inject(constantUsersPerSec(5).during(1.minute).randomized))
   setUp(
 
-    //User Creation and login and query news
-    /*scenarioNewUserGetNews
-      .inject(
-        atOnceUsers(1),
-        constantUsersPerSec(1).during(10.seconds).randomized
-      ).andThen(*/
-      //Issue creation
-    scenarioCreateUserRandomProjectIssue
-      .inject(
-        rampUsers(3).during(5.seconds),
-        constantUsersPerSec(5).during(10.seconds).randomized
-      )/*)
+    scenarioPeterCreateUser.inject(atOnceUsers(50))
       .andThen(
-    // Member Adding
-    scenarioUserCreatesProjectAddsMembers
-      .inject(
-        rampUsers(3).during(5.seconds),
-        constantUsersPerSec(3).during(10.seconds).randomized
-      ))*/
+        scenarioPeterCreateProject.inject(atOnceUsers(50))
+          .andThen(
+            //Issue creation
+            scenarioCreateUserRandomProjectIssue
+              .inject(
+                rampUsers(20).during(5.seconds),
+                constantUsersPerSec(30).during(120.seconds).randomized
+              ),
+            // Member Adding */
+            scenarioUserCreatesProjectAddsMembers
+              .inject(
+                rampUsers(5).during(5.seconds),
+                constantUsersPerSec(5).during(60.seconds).randomized
+              )
 
+          )
+      )
   )
     .protocols(httpProtocol)
     .assertions(
